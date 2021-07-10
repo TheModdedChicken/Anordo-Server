@@ -5,21 +5,19 @@ class Jam {
   /**
    * 
    * @param {String} name Name of jam
-   * @param {{public: boolean, width: number, height: number}} settings Jam settings
+   * @param {{public: boolean, width: number, height: number, description: string, hostID: string}} settings Jam settings
    * @param {JamManager} jamManager JamManager to add jam to
    */
-  constructor(name, settings, jamManager = null) {
+  constructor(settings, jamManager = null) {
     this.id = jamManager ? generateJamID(jamManager) : null;
-    this.name = name ? name : generateJamName();
+    this.name = settings.name ? settings.name : generateJamName();
+    this.description = settings.description ? settings.description : null;
+    this.hostID = settings.hostID ? settings.hostID : null;
     this.hostKey = generateJamAdminToken();
     this.public = settings.public ? settings.public : false;
     this.width = settings.width ? settings.width : 500;
     this.height = settings.height ? settings.height : 500;
     this.lastInteraction = new Date();
-
-    this.canvs = [
-
-    ]
 
     if (jamManager) jamManager.addJam(this);
   }
